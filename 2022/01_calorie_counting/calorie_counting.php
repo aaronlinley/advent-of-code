@@ -30,12 +30,21 @@ class CalorieCounter
             $totals[] = array_sum($elf);
         }
 
-        $mostCalories = max($totals);
-        $elfWithMostCalories = array_search($mostCalories, $totals);
+        arsort($totals);
+        $elfCounter = array_keys($totals);
+
         echo sprintf(
             "The elf with the most calories is %d. They have %d calories available.\n",
-            $elfWithMostCalories + 1,
-            $totals[$elfWithMostCalories]
+            $elfCounter[0] + 1,
+            $totals[$elfCounter[0]]
+        );
+
+        $topThreeElves = [$elfCounter[0] + 1, $elfCounter[1] + 1, $elfCounter[2] + 1];
+        $topThreeCalories = [$totals[$elfCounter[0]], $totals[$elfCounter[1]], $totals[$elfCounter[2]]];
+        echo sprintf(
+            "The top 3 elves are %s. They have %d calories in total.\n",
+            implode(', ', $topThreeElves),
+            array_sum($topThreeCalories)
         );
     }
 }
